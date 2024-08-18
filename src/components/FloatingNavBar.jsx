@@ -64,17 +64,5 @@ const FloatingNavBar = () => {
   );
 };
 
-const styles = {
-  button: {
-    margin: "0 10px",
-    padding: "10px 20px",
-    border: "none",
-    backgroundColor: "#007bff",
-    color: "white",
-    borderRadius: "4px",
-    cursor: "pointer",
-    fontSize: "16px",
-  },
-};
 
 export default FloatingNavBar;

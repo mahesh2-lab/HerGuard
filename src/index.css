@@ -8,3 +8,6 @@
     top: auto;    /* Reset top positioning */
     left: auto;   /* Reset left positioning */
 }
+.leaflet-control-attribution {
+    display: none;
+}

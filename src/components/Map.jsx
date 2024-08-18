@@ -3,6 +3,7 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import { HeatmapLayer } from "react-leaflet-heatmap-layer-v3"; // Ensure correct import path
 import "leaflet/dist/leaflet.css";
 import FloatingNavBar from "./FloatingNavBar"; 
+import { Detail } from "./detail";
 
 const center = [20.536846, 76.180870];
 const points = [
@@ -48,6 +49,7 @@ const Map = () => (
       />
 
     </MapContainer>
+    <Detail/>
   </div>
 );
 
