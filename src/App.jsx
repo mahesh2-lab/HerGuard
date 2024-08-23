@@ -35,6 +35,7 @@ function App() {
             path="/contact"
             element={authUser ? <ContactUs /> : <Navigate to="/" />}
           />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         <Toaster />
       </div>
