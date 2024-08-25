@@ -2,11 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ProfileMenu } from "./Avatar";
 import { Link } from "react-router-dom";
 
-const FloatingNavBar = ({
-  onSearch,
-  suggestions = [],
-  fetchSuggestions,
-}) => {
+const FloatingNavBar = ({ onSearch, suggestions = [], fetchSuggestions }) => {
   const [place, setPlace] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [debouncedQuery, setDebouncedQuery] = useState("");
@@ -96,11 +92,14 @@ const FloatingNavBar = ({
         </div>
 
         <div className="mr-4 flex items-center">
-        <div className="flex items-center gap-x-10 mr-24">
-            <p className="text-lg relative text-blue-gray-900 after:bg-blue-gray-900 after:absolute after:h-[2px] after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer">
+          <div className="flex items-center gap-x-10 mr-24">
+            <p className="text-lg relative text-gray-900 after:bg-blue-gray-900 after:absolute after:h-[2px] after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer">
+              <Link to="/">Home</Link>
+            </p>
+            <p className="text-lg relative text-gray-900 after:bg-blue-gray-900 after:absolute after:h-[2px] after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer">
               <Link to="/about">About Us</Link>
             </p>
-            <p className="text-lg relative text-blue-gray-900 after:bg-blue-gray-900 after:absolute after:h-[2px] after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer">
+            <p className="text-lg relative text-gray-900 after:bg-blue-gray-900 after:absolute after:h-[2px] after:w-0 after:bottom-0 after:left-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer">
               <Link to="/contact">Contact Us</Link>
             </p>
           </div>

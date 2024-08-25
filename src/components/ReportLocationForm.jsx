@@ -17,7 +17,7 @@ import { useAuthContext } from "../context/authContext";
 const ReportLocationForm = ({ open, onClose, onSubmit, position }) => {
     const [description, setDescription] = useState("");
     const [type, setType] = useState("");
-    const [intensity, setIntensity] = useState("1");
+    const [intensity, setIntensity] = useState("");
     const {authUser} = useAuthContext();
 
     const name = authUser ? authUser.firstName +' ' + authUser.lastName : "";
@@ -31,14 +31,14 @@ const ReportLocationForm = ({ open, onClose, onSubmit, position }) => {
           description,
           name,
           type,
-          intensity: parseInt(intensity, 10),
+          intensity: parseFloat(intensity),
         });
         onClose();
       }
     };
   
     return (
-      <Dialog open={open} className="w-16" handler={onClose}>
+      <Dialog open={open} className="w-16 mb-5" handler={onClose}>
         <Card className=" ">
           <CardBody className="flex flex-col gap-3">
             <Input

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import useLogin from "../hooks/useLogin";
+import { Helmet } from "react-helmet";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,6 +15,10 @@ export const Login = () => {
   };
 
   return (
+    <>
+    <Helmet>
+      <title>HerGuard - Login</title>
+    </Helmet>
     <section className="bg-white">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
         <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
@@ -142,5 +147,6 @@ export const Login = () => {
         </main>
       </div>
     </section>
+    </>
   );
 };

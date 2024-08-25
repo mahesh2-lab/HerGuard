@@ -19,6 +19,7 @@ import CenterButton from "./CenterBtn";
 import usereport from "../hooks/useReport";
 import useGetHeatmap from "../hooks/useGetHeatmap";
 import icon from "./icon";
+import toast from "react-hot-toast";
 import { Spinner } from "@material-tailwind/react";
 
 const defaultCenter = [20.536846, 76.18087];
@@ -35,7 +36,13 @@ const heatmapOptions = {
     1.0: "#FF0000",
   },
 };
-
+const getStatus = (intensity) => {
+  if (intensity <= 1) return "Very Safe";
+  if (intensity <= 2) return "Safe";
+  if (intensity <= 3) return "Moderate";
+  if (intensity <= 4) return "Unsafe";
+  return "Very Unsafe";
+};
 function LocationMarker() {
   const location = useGeoLocation();
   const map = useMap();
@@ -44,11 +51,11 @@ function LocationMarker() {
     if (!location.loaded) return;
 
     if (location.permission === "denied") {
-      console.log("Please enable location services.");
+      toast.error("Please enable location services.");
     } else if (location.permission === "unsupported") {
-      console.log("Location services are not supported by your browser.");
+      toast.error("Location services are not supported by your browser.");
     } else if (location.error) {
-      console.log("Error:", location.error.message);
+      toast.error("Error:", location.error.message);
     } else {
       const newPosition = [location.coordinates.lat, location.coordinates.lng];
       map.flyTo(newPosition, 13);
@@ -71,15 +78,19 @@ const Map = () => {
   const [reporting, setReporting] = useState(false);
   const { load, SendReport } = usereport();
   const {loading,  heatdata } = useGetHeatmap();
-
   const location = useGeoLocation();
-  const initialCenter = location.loaded
-    ? [location.coordinates.lat, location.coordinates.lng]
-    : defaultCenter;
 
+  if (location.permission === "denied") {
+    toast.error("Please enable location services.");
+  } else if (location.permission === "unsupported") {
+    toast.error("Location services are not supported by your browser.");
+  } else if (location.error) {
+    toast.error("Error:", location.error.message);
+  } 
+    const initialCenter = [location.coordinates.lat, location.coordinates.lng];
+  
   const toggleReporting = () => {
     setReporting(!reporting);
-    console.log("Reporting mode:", !reporting);
 
     setPosition(null);
   };
@@ -112,7 +123,6 @@ const Map = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (!loading) {
-       console.log("Heatmap data:", heatdata);
        
        await setReportedLocations(heatdata.map((data) => ({
           lat: data.lat,
@@ -127,7 +137,6 @@ const Map = () => {
 
     fetchData();
   }, [loading, heatdata]);
-console.log(loading);
 
   return (
     <div className="relative w-full h-screen">
@@ -175,6 +184,8 @@ console.log(loading);
                 Type: {location.type}
                 <br />
                 Description: {location.description}
+                <br />
+                Status: {getStatus(location.intensity)}
               </Popup>
             </Marker>
           ))}
@@ -188,14 +199,15 @@ console.log(loading);
             bgColor={reporting}
           />
 
-          <Detail />
+          
         </MapContainer> 
       
 
       {formLocation && (
         <ReportLocationForm
           open={isDialogOpen}
-          onClose={() => setIsDialogOpen(false)}
+          onClose={() => {setIsDialogOpen(false) 
+            setReporting(false)}}
           onSubmit={handleFormSubmit}
           position={position}
         />

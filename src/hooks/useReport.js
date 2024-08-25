@@ -22,7 +22,7 @@ const usereport = () => {
         toast.success("Report Sent Successfully");
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error);
     } finally {
       setLoad(false);
     }

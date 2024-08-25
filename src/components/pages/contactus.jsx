@@ -2,10 +2,14 @@ import React from "react";
 import FloatingNavBar from "../FloatingNavBar";
 import { Textarea, Input, Button } from "@material-tailwind/react";
 import Footer from "../Footer";
+import { Helmet } from "react-helmet";
 
 const ContactUs = () => {
   return (
     <>
+     <Helmet>
+        <title>HearGuard Contact Us</title>
+      </Helmet>
       <FloatingNavBar />
       <div className="w-4/5 bg-[#fefff9] mx-auto  gap-y-10 mb-40  grid grid-cols-6 mt-48 ">
         <div className="rounded-3xl py-32 px-24 col-span-6 bg-[#f3f8e2] leading-6 text-center">

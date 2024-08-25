@@ -14,7 +14,6 @@ const useLogout = () => {
                     headers: {"Content-Type": "application/json"},
                 });
                 const data = await res.json();
-                console.log(data);
                 
                 if(data.error){
                     throw new Error(data.error);
@@ -22,7 +21,6 @@ const useLogout = () => {
                 localStorage.removeItem("Secret");
                 setAuthUser(null);  
             } catch (error) {
-                
                 toast.error(error.message);
             }
             finally{
